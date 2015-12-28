@@ -193,15 +193,15 @@ public class TCPdumpHandler {
                 Toast.makeText(mContext, ("RootCmd false"),
                         Toast.LENGTH_SHORT).show();
             }else{
-                String returnstring = new String();
-                returnstring = secondActivity.RootCmd("cat /data/data/com.example.yonghaohu.sniff/files/tcpdump_res");
-                if(returnstring == "false") {
-                    Toast.makeText(mContext, ("Cat false"),
-                            Toast.LENGTH_SHORT).show();
-                }else {
-                    Toast.makeText(mContext, (returnstring),
-                            Toast.LENGTH_SHORT).show();
-                }
+                //;
+//                String returnstring = new String();
+//                returnstring = secondActivity.RootCmd("cat /data/data/com.example.yonghaohu.sniff/files/tcpdump_res");
+//                if(returnstring == "false") {
+//                    Toast.makeText(mContext, ("Cat false"),
+//                            Toast.LENGTH_SHORT).show();
+//                }else {
+//                    ;
+//                }
 
             }
 //            AlertDialog.Builder builder1 = new AlertDialog.Builder(mContext);
@@ -209,7 +209,6 @@ public class TCPdumpHandler {
 //            builder1.show();
             //}
             //setProgressbarVisible();
-            j
             //if (notificationEnabled)
             //    postNotification();
             return 0;
@@ -237,7 +236,7 @@ public class TCPdumpHandler {
 //            setProgressbarInvisible();
 //            if (notificationEnabled)
 //                removeNotification();
-            return 0g;
+            return 0;
         } else
             return TCPdumpReturn;
     }
