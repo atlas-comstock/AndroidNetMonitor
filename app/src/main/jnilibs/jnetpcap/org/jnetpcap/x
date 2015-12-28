@@ -1,0 +1,1 @@
+javah -classpath ./ -jni org.jnetpcap.winpcap.{WinPcap$1,WinPcapRmtAuth,WinPcapSendQueue, WinPcap,WinPcapSamp,WinPcapStat}

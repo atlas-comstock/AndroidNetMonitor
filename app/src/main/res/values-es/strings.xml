@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="app_name">Shark</string>
+	<string name="interface_prompt">Elige una interfaz</string>
+	<string name="verbose_promt">Elige un nivel de detalle</string>
+	<string name="parameter_label_text">Parámetros</string>
+	<string name="start_button_text">Empezar</string>
+	<string name="stop_button_text">Parar</string>
+	<string name="reader_button_text">Abrir fichero</string>
+	<string name="standard_output_text">Salida Estándar</string>
+	<string name="welcome_text">Bienvenido a Shark. Presiona el botón empezar para
+		lanzar la captura de paquetes.</string>
+	<string name="options_text">Opciones</string>
+	<string name="about_text">Acerca de Shark</string>
+	<string name="tcpdump_options_text">Opciones de TCPdump</string>
+	<string name="interface_label_text">Capturar con interfaz</string>
+	<string name="verbose_checkbox_text">Modo detallado</string>
+	<string name="snaplenght_checkbox_text">Tamaño personalizado</string>
+	<string name="promiscuous_checkbox_text">Modo promíscuo</string>
+	<string name="io_options_text">Opciones de Entrada/Salida</string>
+	<string name="save_checkbox_text">Guardar paquetes en fichero</string>
+	<string name="actions_label_text">Acciones</string>
+	<string name="commit_button_text">Guardar cambios</string>
+	<string name="dischard_button_text">Descartar cambios</string>
+	<string name="about_shark">Shark es una interfaz para TCPdump y
+		Jnetpcap para
+		Android.\n\nAutor: Sergio Jiménez Feijóo
+		(sergio.jf89@gmail.com)\n\nShark es software libre licenciado bajo la
+		GNU GPL.</string>
+	<string name="standard_output_disabled">Shark está ejecutándose. Debido a que la captura se
+		está guardando en un fichero la salida estándard de TCPdump ha quedado
+		desactivada. Cuando la captura haya finalizado puedes encontrar el
+		fichero resultante en /mnt/sdcard/</string>
+	<string name="standard_output_enabled">Arrancando Shark. El proceso puede necesitar unos
+		cuantos segundos...</string>
+	<string name="tcpdump_started">TCPdump ha sido lanzado</string>
+	<string name="tcpdump_already_started">TCPdump ya está ejecutándose</string>
+	<string name="device_not_rooted_error">Tu dispositivo no está rooteado</string>
+	<string name="device_not_rooted_error_msg">Shark ha detectado que tu dispositivo no está
+		rooteado. TCPdump no pudo ser lanzado.</string>
+	<string name="command_error">Se ha producido un error cuando se intentaba
+		ejecutar el comando. TCPdump no pudo ser lanzado.</string>
+	<string name="outputstream_error">Se ha producido un error cuando se intentaba vaciar
+		el buffer de el stream de salida.</string>
+	<string name="unknown_error">Se ha producido un error desconocido.</string>
+	<string name="network_connection_error">No se detecta conexión a la red</string>
+	<string name="network_connection_error_msg">Shark ha detectado que tu dispositivo no se
+		encuentra conectado a ninguna red. Shark no podrá capturar paquetes a
+		menos que estés conectado a alguna red ¿Deseas conectarte a una red
+		ahora?
+	</string>
+	<string name="tcpdump_stoped">TCPdump ha sido detenido</string>
+	<string name="tcpdump_already_stoped">TCPdump no estaba ejecutándose</string>
+	<string name="close_shell_error">Se ha producido un error mientras se intentaba
+		cerrar la shell.</string>
+	<string name="process_finish_error">Se ha producido un error mientras se esperaba a que
+		el proceso finalizase.</string>
+	<string name="capture_in_progress_error">Hay una captura en curso</string>
+	<string name="capture_in_progress_error_msg">Shark ha detectado que hay una captura en curso.
+		Para poder abrir el lector debes detenerla.\n\nQuieres parar la
+		captura ahora?</string>
+	<string name="file_error">El fichero no existe</string>
+	<string name="file_error_msg">Shark ha detectado que el fichero que intentas
+		abrir no existe. Realiza una captura con la opción \'Guardar paquetes
+		en fichero\' activada.</string>
+	<string name="settings_changed">Ajustes cambiados</string>
+	<string name="settings_changed_msg">Shark ha detectado que has cambiado los ajustes
+		mientras una captura esyaba en curso. Los nuevos cambios que hayas
+		realizado no entrarán en vigor hasta que detengas la captura actual y
+		empiezes una nueva.
+	</string>
+	<string name="network_connection_down">Conexión a la red interrumpida</string>
+	<string name="network_connection_down_msg">La conexión a la red se interrumpió mientras
+		TCPdump estaba ejecutándose. TCPdump ha sido detenido.</string>
+	<string name="tcpdump_notification">TCPdump ha empezado a capturar paquetes</string>
+	<string name="tcpdump_notification_msg">TCPdump está capturando paquetes</string>
+	<string name="extraction_error">No se pudo instalar TCPdump</string>
+	<string name="extraction_error_msg">Shark no ha podido instalar el ejecutable de
+		TCPdump en su dispositivo. Esto puede deberse a que su terminal no
+		esté rooteado. Shark no podrá capturar paquetes.</string>
+	<string name="yes">Sí</string>
+	<string name="no">No</string>
+	<string name="ok">Aceptar</string>
+	<string name="layer_3">Nivel de red</string>
+	<string name="network_protocol">Protocolo de red:</string>
+	<string name="network_src">IP origen:</string>
+	<string name="network_dst">IP destino:</string>
+	<string name="layer_4">Nivel de transporte</string>
+	<string name="transport_protocol">Protocolo de transporte:</string>
+	<string name="transport_src">Puerto origen:</string>
+	<string name="transport_dst">Puerto destino:</string>
+	<string name="layer_5">Nivel de aplicación</string>
+	<string name="application_protocol">Protocolo de aplicación:</string>
+	<string name="unknown">Desconocido</string>
+	<string name="packet_number">Número de paquete:</string>
+	<string name="packets_captured">Paquetes Capturados</string>
+</resources>

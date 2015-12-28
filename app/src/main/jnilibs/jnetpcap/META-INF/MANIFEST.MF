@@ -1,0 +1,14 @@
+Manifest-Version: 1.0
+Ant-Version: Apache Ant 1.7.1
+Created-By: Apache Ant Apache Ant version 1.7.1 compiled on September 
+ 8 2010
+Built-By: Sly Technologies, Inc.
+Built-On: 2013-23-19T19:23:07
+Specification-Title: jNetPcap
+Specification-Vendor: Sly Technologies, Inc.
+Specification-Version: 1.4.r1425
+Implementation-Title: jNetPcap runtime
+Implementation-Vendor: Sly Technologies, Inc.
+Implementation-Version: 1.4.r1425
+Sealed: false
+

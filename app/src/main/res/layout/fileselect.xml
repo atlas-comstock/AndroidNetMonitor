@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="350dp"
+    android:layout_height="440dp"
+    android:orientation="vertical"
+    >
+
+    <TextView
+        android:id="@+id/mPath"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="5px"
+        android:textSize="18sp"
+        >
+    </TextView>
+    <ListView
+        android:id="@android:id/list"
+        android:layout_width="fill_parent"
+        android:layout_height="370dp"
+        >
+    </ListView>
+    <LinearLayout
+        android:gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        >
+        <Button
+            android:id="@+id/buttonConfirm"
+            android:layout_width="125px"
+            android:layout_height="fill_parent"
+            android:text="确定"
+            />
+        <Button
+            android:id="@+id/buttonCancle"
+            android:layout_width="125px"
+            android:layout_height="fill_parent"
+            android:text="取消"
+            />
+
+
+
+    </LinearLayout>
+</LinearLayout>

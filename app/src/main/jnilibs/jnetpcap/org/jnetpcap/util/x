@@ -1,0 +1,2 @@
+
+javah -classpath ./ -jni org.jnetpcap.util.{BlockingQueuePump$1,JEvent,PcapPacketArrayList,BlockingQueuePump,JLogger,PcapPacketSupport$Entry,DataUtils,JNetPcapFormatter,PcapPacketSupport,Debug$Level,JPacketSupport$Entry,SlidingBuffer,Debug$LevelId,JPacketSupport,Timeout,Debug,JStringBuilder,TimeoutQueue,ExpandableString,JThreadLocal,Units,HoldQueue$HoldHandle,Length,HoldQueue,Offset}

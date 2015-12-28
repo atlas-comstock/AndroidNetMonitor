@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+ <project name="NdkSample" default="BuildAll"> <!--  default="BuildAll" 指定要编译的target-->
+<description>description</description>
+<!--呼叫目标-->
+<target name="BuildAll">
+	<antcall target="BuildPortHeader" />
+</target>
+<!--目标_使用javah命令 destdir生成文件的目的路径,classpath类Class文件路径 , class类名-->
+         <!--  destdir 是生成的xxx.h存放的目录,classpath是java类的class所在的位置,class是java类的包名. -->
+<target name="BuildPortHeader">
+    <javah destdir="./" classpath="./" class="org.jnetpcap.packet.*"></javah>
+</target>
+</project>

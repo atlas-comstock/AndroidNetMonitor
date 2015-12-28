@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="app_name">Shark</string>
+	<string name="interface_prompt">Choose an interface</string>
+	<string name="verbose_promt">Choose a level of detail</string>
+	<string name="parameter_label_text">Parameters</string>
+	<string name="start_button_text">Start</string>
+	<string name="stop_button_text">Stop</string>
+	<string name="reader_button_text">Open in reader</string>
+	<string name="standard_output_text">Standard output</string>
+	<string name="welcome_text">Welcome to Shark. Press the Start button to begin
+		the packet capture.</string>
+	<string name="options_text">Options</string>
+	<string name="about_text">About Shark</string>
+	<string name="tcpdump_options_text">TCPdump Options</string>
+	<string name="interface_label_text">Capture on interface</string>
+	<string name="verbose_checkbox_text">Verbose mode</string>
+	<string name="snaplenght_checkbox_text">Custom snaplenght</string>
+	<string name="promiscuous_checkbox_text">Promiscuous mode</string>
+	<string name="io_options_text">Input/Output Options</string>
+	<string name="save_checkbox_text">Save packets to a file</string>
+	<string name="actions_label_text">Actions</string>
+	<string name="commit_button_text">Commit changes</string>
+	<string name="dischard_button_text">Discard changes</string>
+	<string name="about_shark">Shark is an Android GUI for TCPdump and
+		Jnetpcap.\n\nAuthor: Sergio Jiménez Feijóo
+		(sergio.jf89@gmail.com)\n\nShark is free software licensed under the
+		GNU GPL.</string>
+	<string name="standard_output_disabled">Shark is running. Since the packet capture is being
+		saved in a file TCPdump\'s standard output is disabled. When the
+		capture it\'s finished you can find the results file in /mnt/sdcard/
+	</string>
+	<string name="standard_output_enabled">Starting Shark. It might take a few seconds...
+	</string>
+	<string name="tcpdump_started">TCPdump has been started</string>
+	<string name="tcpdump_already_started">TCPdump is already running</string>
+	<string name="device_not_rooted_error">Your device isn\'t rooted</string>
+	<string name="device_not_rooted_error_msg">Shark has detected that your device isn\'t rooted.
+		TCPdump was not launched.</string>
+	<string name="command_error">An error has been produced when trying to execute
+		the command. TCPdump was not launched.</string>
+	<string name="outputstream_error">An error has been produced when trying to flush the
+		output stream.</string>
+	<string name="unknown_error">An unknown error has been produced.</string>
+	<string name="network_connection_error">No network connection found</string>
+	<string name="network_connection_error_msg">Shark has detected that your device isn\'t
+		connected to any network. Shark won\'t be able to capture packets
+		unless you are connected to a network. ¿Would you like
+		to do so now?
+	</string>
+	<string name="tcpdump_stoped">TCPdump has been stoped</string>
+	<string name="tcpdump_already_stoped">TCPdump wasn\'t running</string>
+	<string name="close_shell_error">An error has been produced when trying to close the
+		shell.</string>
+	<string name="process_finish_error">An error has been produced when waiting for the
+		process to finish.</string>
+	<string name="capture_in_progress_error">A capture is in progress</string>
+	<string name="capture_in_progress_error_msg">Shark has detected that a capture is in progress
+		right now. In order to open the reader you must stop it.\n\nWould you
+		like to do so now?</string>
+	<string name="file_error">No file to read</string>
+	<string name="file_error_msg">Shark has detected that the file that you are
+		trying to open doesn\'t exist. Make a capture with the \'save packets
+		to
+		a file\' option enabled.</string>
+
+	<string name="settings_changed">Settings changed</string>
+	<string name="settings_changed_msg">Shark has detected that you have changed your
+		settings while a capture was running. The new settings won\'t take
+		effect until you stop the current capture and start a new one.
+	</string>
+	<string name="network_connection_down">Network connection went down</string>
+	<string name="network_connection_down_msg">"Network connection went down while TCPdump was
+		active. TCPdump was stopped."</string>
+	<string name="tcpdump_notification">TCPdump has started the packet capture</string>
+	<string name="tcpdump_notification_msg">TCPdump is capturing packets</string>
+	<string name="extraction_error">Couldn\'t install TCPdump</string>
+	<string name="extraction_error_msg">Shark couldn\'t install TCPdump\'s executable in
+		your device. This may have been caused because your device isn\'t
+		rooted. Shark won\'t be able to capture packets.</string>
+	<string name="yes">Yes</string>
+	<string name="no">No</string>
+	<string name="ok">Ok</string>
+	<string name="layer_3">Network layer</string>
+	<string name="network_protocol">Network protocol:</string>
+	<string name="network_src">IP source address:</string>
+	<string name="network_dst">IP destination address:</string>
+	<string name="layer_4">Transport layer</string>
+	<string name="transport_protocol">Transport protocol:</string>
+	<string name="transport_src">Source port:</string>
+	<string name="transport_dst">Destination port:</string>
+	<string name="layer_5">Application layer</string>
+	<string name="application_protocol">Application protocol:</string>
+	<string name="unknown">Unknown</string>
+	<string name="packet_number">Packet number:</string>
+	<string name="packets_captured">Packets Captured</string>
+</resources>
