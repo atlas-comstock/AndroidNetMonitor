@@ -45,7 +45,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-public class SniffPackets {
+public class SniffPackets extends Thread{
 
     // Variable declarations for handling the view items in the layout.
     //private Button start_button;
@@ -57,6 +57,7 @@ public class SniffPackets {
     private TCPdump tcpdump = null;
     private TCPdumpHandler tcpDumpHandler = null;
     private SharedPreferences settings = null;
+    private Context mycontext = null;
 
     // Variable declarations for handling the options and reader activities.
     private Intent optionsIntent = null;
@@ -82,6 +83,16 @@ public class SniffPackets {
             //tcpDumpHandler.generateCommand();
         }
     }
+
+    public void setcontext(Context context) {
+        this.mycontext = context;
+    }
+
+    @Override
+    public void run() {
+        startTCPdump();
+    }
+
 
 
     //setContentView(R.layout.main);
@@ -127,54 +138,54 @@ public class SniffPackets {
     /**
      * Calls TCPdumpHandler to try start the packet capture.
      */
-    public void startTCPdump(final Context context) {
+    public void startTCPdump() {
         if (true) {//tcpDumpHandler.checkNetworkStatus()
 
             switch (tcpDumpHandler.start("-i any -p")) {
                 case 0:
-                    Toast.makeText(context, (R.string.tcpdump_started),
+                    Toast.makeText(mycontext, (R.string.tcpdump_started),
                             Toast.LENGTH_SHORT).show();
                     break;
                 case -1:
-                    Toast.makeText(context,
-                            context.getString(R.string.tcpdump_already_started),
+                    Toast.makeText(mycontext,
+                            mycontext.getString(R.string.tcpdump_already_started),
                             Toast.LENGTH_SHORT).show();
                     break;
                 case -2:
-                    new AlertDialog.Builder(context)
-                            .setTitle(context.getString(R.string.device_not_rooted_error))
+                    new AlertDialog.Builder(mycontext)
+                            .setTitle(mycontext.getString(R.string.device_not_rooted_error))
                             .setMessage(
-                                    context.getString(R.string.device_not_rooted_error_msg))
-                            .setNeutralButton(context.getString(R.string.ok), null).show();
+                                    mycontext.getString(R.string.device_not_rooted_error_msg))
+                            .setNeutralButton(mycontext.getString(R.string.ok), null).show();
                     break;
                 case -4:
-                    new AlertDialog.Builder(context).setTitle("Error")
-                            .setMessage(context.getString(R.string.command_error))
-                            .setNeutralButton(context.getString(R.string.ok), null).show();
+                    new AlertDialog.Builder(mycontext).setTitle("Error")
+                            .setMessage(mycontext.getString(R.string.command_error))
+                            .setNeutralButton(mycontext.getString(R.string.ok), null).show();
                     break;
                 case -5:
-                    new AlertDialog.Builder(context).setTitle("Error")
-                            .setMessage(context.getString(R.string.outputstream_error))
-                            .setNeutralButton(context.getString(R.string.ok), null).show();
+                    new AlertDialog.Builder(mycontext).setTitle("Error")
+                            .setMessage(mycontext.getString(R.string.outputstream_error))
+                            .setNeutralButton(mycontext.getString(R.string.ok), null).show();
                     break;
                 default:
-                    new AlertDialog.Builder(context).setTitle("Error")
-                            .setMessage(context.getString(R.string.unknown_error))
-                            .setNeutralButton(context.getString(R.string.ok), null).show();
+                    new AlertDialog.Builder(mycontext).setTitle("Error")
+                            .setMessage(mycontext.getString(R.string.unknown_error))
+                            .setNeutralButton(mycontext.getString(R.string.ok), null).show();
             }
         } else {
-            new AlertDialog.Builder(context)
-                    .setTitle(context.getString(R.string.network_connection_error))
+            new AlertDialog.Builder(mycontext)
+                    .setTitle(mycontext.getString(R.string.network_connection_error))
                     .setMessage(
-                            context.getString(R.string.network_connection_error_msg))
-                    .setPositiveButton(context.getString(R.string.yes),
+                            mycontext.getString(R.string.network_connection_error_msg))
+                    .setPositiveButton(mycontext.getString(R.string.yes),
                             new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog,
                                                     int which) {
-                                    context.startActivity(new Intent(
+                                    mycontext.startActivity(new Intent(
                                             Settings.ACTION_WIRELESS_SETTINGS));
                                 }
-                            }).setNegativeButton(context.getString(R.string.no), null)
+                            }).setNegativeButton(mycontext.getString(R.string.no), null)
                     .show();
         }
     }

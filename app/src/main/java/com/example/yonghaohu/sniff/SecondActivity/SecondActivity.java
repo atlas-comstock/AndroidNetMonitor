@@ -14,6 +14,8 @@ import android.widget.Button;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.CompoundButton;
+import android.widget.Toast;
+
 import org.apache.http.client.entity.EntityBuilder;
 import org.apache.http.message.*;
 import org.apache.http.client.methods.CloseableHttpResponse;
@@ -50,13 +52,17 @@ public class SecondActivity extends Activity {
     public String file_path = new String();
     private boolean is_Checked = false;
     private Context context;
+    private SniffPackets sniffpackets;
+    Button start_button;
+    Socket_Sniff socket_sniff;
 
     @Override
     protected void onCreate(Bundle saveInstanceState) {
         super.onCreate(saveInstanceState);
-        this.context = getApplicationContext();
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.second_layout);
+        context = getApplicationContext();
+        sniffpackets = new SniffPackets(this.context);
         Switch toggle = (Switch) findViewById(R.id.ParamToggleButton);
         toggle.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -70,12 +76,6 @@ public class SecondActivity extends Activity {
             }
         });
 
-       // ClassicPcap test = new ClassicPcap();
-       // String pcptmp = test.echo();
-       // AlertDialog.Builder builder1 = new AlertDialog.Builder(SecondActivity.this);
-       // builder1.setMessage("pcptmp is "+pcptmp);
-       // builder1.show();
-
         Button button = (Button)findViewById(R.id.choose_dir);
         textView = (TextView)findViewById(R.id.text_view);
         button.setOnClickListener(new View.OnClickListener() {
@@ -87,6 +87,7 @@ public class SecondActivity extends Activity {
 
         Intent intent = getIntent();
         final List<Program> transfer_list_program = intent.getParcelableArrayListExtra("extra_data");
+        socket_sniff = new Socket_Sniff(this.context, transfer_list_program );
         for (Program aa2 : transfer_list_program) {
             StringBuilder sb = new StringBuilder();
             sb.append(aa2.getName() + "in act2, pid is " + aa2.getPid() + "\n");
@@ -95,7 +96,7 @@ public class SecondActivity extends Activity {
             builder2.show();
         }
 
-        Button start_button = (Button)findViewById(R.id.start_button);
+        start_button = (Button)findViewById(R.id.start_button);
         start_button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 StartSniff(transfer_list_program, is_Checked);
@@ -106,17 +107,27 @@ public class SecondActivity extends Activity {
         Button stop_button = (Button)findViewById(R.id.stop_button);
         stop_button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                SniffPackets sniffpackets = new SniffPackets(context);//catch origin
-                sniffpackets.stopTCPdump(context);
+                start_button.setEnabled(true);
+                socket_sniff.stopprocess();
+                socket_sniff.interrupt();
+                sniffpackets.interrupt();
+                if(socket_sniff.isInterrupted() == true)
+                    Toast.makeText(context, ("Stop SocketSniff Success"),
+                            Toast.LENGTH_SHORT).show();
+                else
+                    Toast.makeText(context, ("Stop SniffPackets Success"),
+                            Toast.LENGTH_SHORT).show();
+
+                Toast.makeText(context, ("Stop Success"),
+                        Toast.LENGTH_SHORT).show();
+                //SniffPackets sniffpackets = new SniffPackets(context);//catch origin
+//                sniffpackets.stopTCPdump(context);
 //                if(isWifi(context))
 
             }
         });
 
-
-
     }
-
 
 
     /* functions helper */
@@ -136,221 +147,18 @@ public class SecondActivity extends Activity {
     }
 
     protected void StartSniff(List<Program> transfer_list_program, boolean is_Checked) {
+        start_button.setEnabled(false);
+        Toast.makeText(context, ("Start"),
+                Toast.LENGTH_SHORT).show();
+        socket_sniff.start();
         if(is_Checked == true) {
-            SniffPackets sniffpackets = new SniffPackets(this.context);//catch origin
-            sniffpackets.startTCPdump(this.context);
             Log.d("SniffPackets end", "HELLO");
-        } else {
-            Log.d("SocketSummary", "HELLO");
-            SocketSummary(transfer_list_program);
+            sniffpackets.setcontext(context);
+            sniffpackets.start();
+//            sniffpackets.run();
         }
     }
 
-    protected void SocketSummary(List<Program> transfer_list_program) {
-        PollData polldata = new PollData();
-        String apkRoot= getPackageCodePath();
-        AlertDialog.Builder builder2 = new AlertDialog.Builder(SecondActivity.this);
-        String returnString = "";
-       if(RootCmd(apkRoot) == "false") {
-           builder2.setMessage("can not root");
-           builder2.show();
-       }
-       if(RootCmd("/proc/") == "false") {
-           builder2.setMessage("can not root all");
-           builder2.show();
-       }
-
-        for (int i = 0; i < transfer_list_program.size(); i++) {
-            String path = "/proc/" + transfer_list_program.get(i).getPid() + "/fd";
-            String cmd =  "mkdir /sdcard/Android/data/com.example.yonghaohu.sniff";//  netstat -alp tcp      chmod -R 777
-            if(RootCmd(cmd) == "false") {
-                builder2.setMessage("rootcmd mkdir false\n");
-                builder2.show();
-            }else {
-                cmd =  "chmod 777 /sdcard/Android/data/com.example.yonghaohu.sniff";//  netstat -alp tcp      chmod -R 777
-                if(RootCmd(cmd) == "false") {
-                    builder2.setMessage("chmod false\n");
-                    builder2.show();
-                }else{
-                    builder2.setMessage("mkdir and chomod success\n");
-                    builder2.show();
-                }
-            }
-            cmd =  "ls -l "+path+" >  /sdcard/Android/data/com.example.yonghaohu.sniff/fdres";//  netstat -alp tcp      chmod -R 777 ./myresult/fdres
-            if(RootCmd(cmd) == "false") {
-                builder2.setMessage("rootcmd false\n");
-                builder2.show();
-            }else {
-                builder2.show();
-                cmd = "cat  /sdcard/Android/data/com.example.yonghaohu.sniff/fdres";
-                returnString = RootCmd(cmd);
-                if(returnString == "false") {
-                    builder2.setMessage("cat false\n");
-                    builder2.show();
-                }else {
-
-                    builder2.setMessage(cmd+" then "+returnString+" end\n");
-                    builder2.show();
-                    String res_content = new String();
-                    ArrayList<Integer> res_of_socket = new ArrayList<Integer>();
-                    res_of_socket = polldata.ParseOutput(returnString);
-                    if(res_of_socket.size() == 0)
-                        res_content = "aaaaaaaaaaaa";
-                    else {
-                        res_content += "\ntcp start: ";
-                        res_content += polldata.testNoListeningTcpPorts(res_of_socket);
-                        res_content += "\ntcp6 start:";
-                        res_content += polldata.testNoListeningTcp6Ports(res_of_socket);
-                    }
-                   // writeFileSdcardFile("/sdcard/Android/data/com.example.yonghaohu.sniff/socketres", res_content);
-                    cmd = "echo \"" + res_content + "\" " + "/sdcard/Android/data/com.example.yonghaohu.sniff/socketres";
-                    returnString = RootCmd(cmd);
-                    builder2.setMessage(returnString);
-                    builder2.show();
-                }
-            }
-
-//            NdkJniUtils jni = new NdkJniUtils();
-//            builder2.setMessage("Is file readable :" + scriptfile.canRead()+" finishcall");
-//            builder2.show();
-         //   String res = jni.getCLanguageString(path);
-         //   builder2.setMessage(res);
-         //   builder2.show();
-
-//            try {
-//                AccessController.checkPermission(new FilePermission(path, "read"));
-//                StringBuilder sb = new StringBuilder();
-//                sb.append("You have  permition: "+path+"\n"+transfer_list_program.get(i).getName()+"\n");
-//                File dir = new File(path);
-//                File file[] = dir.listFiles();
-//                AlertDialog.Builder builder2 = new AlertDialog.Builder(SecondActivity.this);
-//                if(file == null || file.length == 0) {
-//                   String cmd =  "netstat -apeen ";// lsof -i -w tcp
-//
-//                    String returnString = resultExeCmd(cmd);
-//                   builder2.setMessage(cmd+"then "+returnString+" end\n");
-//                   builder2.show();
-//                    String apkRoot= getPackageCodePath();
-//                    builder2.setMessage("目前路径 ： "+ apkRoot);
-//                    builder2.show();
-//                    if(RootCmd(apkRoot) != true) {
-//                        builder2.setMessage("can not root");
-//                        builder2.show();
-//                    }
-//                     cmd = "ls -l " + path;
-//                     returnString = resultExeCmd(cmd);
-//                    if(returnString.length() != 0 || returnString != null) {
-//                        builder2.setMessage(cmd+"then "+returnString);
-//                        builder2.show();
-//                        char first = 'l';//returnString.charAt(0);
-//                        if(first != 'l')
-//                            returnString = "普通文件";
-//                    }else
-//                        returnString = "NULL";
-//                    sb.append(returnString +"\n");
-//                }
-//                else {
-//                    String res_content = new String();
-//                    ArrayList<Integer> res_of_socket = new ArrayList<Integer>();
-//                    res_of_socket = polldata.ParsePid(transfer_list_program.get(i).getPid());
-//                    if(res_of_socket == null)
-//                        res_content = "aaaaaaaaaaaa";
-//                    else {
-//                        res_content = polldata.testNoListeningTcpPorts(res_of_socket);
-//                        res_content += "finish";
-//                    }
-//                    sb.append(res_content);
-//                }
-//                builder2.setMessage(sb);
-//                builder2.show();
-//            } catch (SecurityException e) {
-//                StringBuilder sb = new StringBuilder();
-//                sb.append("You have no  permition to use : "+path);
-//                AlertDialog.Builder builder2 = new AlertDialog.Builder(SecondActivity.this);
-//                builder2.setMessage(sb);
-//                builder2.show();
-//
-//            }
-
-
-        }
-    }
-
-    public static String resultExeCmd(String cmd) {
-        String returnString = "";
-        Process pro = null;
-        Runtime runTime = Runtime.getRuntime();
-        if (runTime == null) {
-            System.err.println("Create runtime false!");
-        }
-        try {
-            pro = runTime.exec(cmd);
-            BufferedReader input = new BufferedReader(new InputStreamReader(pro.getInputStream()));
-            PrintWriter output = new PrintWriter(new OutputStreamWriter(pro.getOutputStream()));
-            String line;
-            while ((line = input.readLine()) != null) {
-                returnString = returnString + line + "\n";
-            }
-            input.close();
-            output.close();
-            pro.destroy();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        return returnString;
-    }
-
-    public String RootCmd(String cmd){
-        Process process = null;
-        DataOutputStream os = null;
-        String returnString = cmd+"\noutput is : ";
-        try{
-            process = Runtime.getRuntime().exec("su");
-            os = new DataOutputStream(process.getOutputStream());
-            os.writeBytes(cmd+ "\n");
-            os.writeBytes("exit\n");
-            os.flush();
-            process.waitFor();
-        } catch (Exception e) {
-            return "false";
-        } finally {
-            try {
-                if (os != null)   {
-                    os.close();
-                }
-                AlertDialog.Builder builder2 = new AlertDialog.Builder(SecondActivity.this);
-                process = Runtime.getRuntime().exec(cmd);
-                BufferedReader input = new BufferedReader(new InputStreamReader(process.getInputStream()));
-                PrintWriter output = new PrintWriter(new OutputStreamWriter(process.getOutputStream()));
-                String line;
-                while ((line = input.readLine()) != null) {
-                    returnString = returnString + line + "\n";
-                }
-                //builder2.setMessage(returnString);
-                //builder2.show();
-                input.close();
-                output.close();
-
-                process.destroy();
-            } catch (Exception e) {
-            }
-        }
-        return returnString;
-    }
-
-    public void writeFileSdcardFile(String fileName,String write_str){
-        try{
-            FileOutputStream fout = new FileOutputStream(fileName);
-            byte [] bytes = write_str.getBytes();
-
-            fout.write(bytes);
-            fout.close();
-        }
-        catch(Exception e){
-            e.printStackTrace();
-        }
-    }
 
     private static boolean isWifi(Context mContext) {
         ConnectivityManager connectivityManager = (ConnectivityManager) mContext
@@ -363,21 +171,22 @@ public class SecondActivity extends Activity {
         return false;
     }
 
-    private static boolean upload_file(Context mContext) {
-        String filePath = "", url="";
-        CloseableHttpClient httpClient = HttpClients.createDefault();
-        File file = new File(filePath);
-        if(file == null){
-        }
-        EntityBuilder multipartEntity = EntityBuilder.create();
-        multipartEntity.setFile(file);
-        BasicHttpEntityHC4 entity = (BasicHttpEntityHC4)multipartEntity.build();
+//    private static boolean upload_file(Context mContext) {
+//        String filePath = "", url="";
+//        CloseableHttpClient httpClient = HttpClients.createDefault();
+//        File file = new File(filePath);
+//        if(file == null){
+//        }
+//        EntityBuilder multipartEntity = EntityBuilder.create();
+//        multipartEntity.setFile(file);
+//        BasicHttpEntityHC4 entity = (BasicHttpEntityHC4)multipartEntity.build();
+//
+//        HttpPostHC4 httpPostHC4 = new HttpPostHC4(url);
+//        httpPostHC4.setEntity(entity);
+//        CloseableHttpResponse response = httpClient.execute(httpPostHC4);
 
-        HttpPostHC4 httpPostHC4 = new HttpPostHC4(url);
-        httpPostHC4.setEntity(entity);
-        CloseableHttpResponse response = httpClient.execute(httpPostHC4);
+//    }
 
-    }
 //    public final static void process(String[] cmdarray) throws Throwable {
 //        ProcessBuilder pb = new ProcessBuilder(cmdarray);
 //        pb.redirectErrorStream(true);

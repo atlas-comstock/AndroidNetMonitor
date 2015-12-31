@@ -3,6 +3,7 @@ apply plugin: 'com.android.model.application'
 dependencies {
     compile 'com.android.support:support-v4:23.1.0'
     compile group: 'org.apache.httpcomponents' , name: 'httpclient-android' , version: '4.3.3'
+//    compile 'org.apache.httpcomponents:httpmime:4.3.6'
     compile files('libs/jnetpcap.jar')
 }
 model {

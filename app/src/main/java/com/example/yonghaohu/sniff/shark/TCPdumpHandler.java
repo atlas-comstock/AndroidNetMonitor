@@ -45,11 +45,16 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.BufferedReader;
+import java.io.DataOutputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
 
 /**
  * Allows an Android app to interact with the standard output of a TCPdump
- * process and create a notification that warns about TCPdump is running.
+ * myprocess and create a notification that warns about TCPdump is running.
  */
 public class TCPdumpHandler {
 
@@ -87,7 +92,7 @@ public class TCPdumpHandler {
     private EditText params = null;
 
     /**
-     * This runnable is used for refreshing the TCPdump's process standard
+     * This runnable is used for refreshing the TCPdump's myprocess standard
      * output.
      */
     public String GetOutput() {
@@ -157,8 +162,47 @@ public class TCPdumpHandler {
         }
     }
 
+
+    Process myprocess = null;
+    public String RootCmd(String cmd){
+        DataOutputStream os = null;
+        String returnString = cmd+"\noutput is : ";
+        try{
+            myprocess = Runtime.getRuntime().exec("su");
+            os = new DataOutputStream(myprocess.getOutputStream());
+            os.writeBytes(cmd+ "\n");
+            os.writeBytes("exit\n");
+            os.flush();
+            myprocess.waitFor();
+        } catch (Exception e) {
+            return "false";
+        } finally {
+            try {
+                if (os != null)   {
+                    os.close();
+                }
+//                AlertDialog.Builder builder2 = new AlertDialog.Builder(SecondActivity.this);
+                myprocess = Runtime.getRuntime().exec(cmd);
+                BufferedReader input = new BufferedReader(new InputStreamReader(myprocess.getInputStream()));
+                PrintWriter output = new PrintWriter(new OutputStreamWriter(myprocess.getOutputStream()));
+                String line;
+                while ((line = input.readLine()) != null) {
+                    returnString = returnString + line + "\n";
+                }
+                //builder2.setMessage(returnString);
+                //builder2.show();
+                input.close();
+                output.close();
+
+                myprocess.destroy();
+            } catch (Exception e) {
+            }
+        }
+        return returnString;
+    }
+
     /**
-     * Starts a TCPdump process, enables refreshing and posts a notification.
+     * Starts a TCPdump myprocess, enables refreshing and posts a notification.
      *
      * @param params
      *            The parameters that TCPdump will use. For example: -i
@@ -171,53 +215,24 @@ public class TCPdumpHandler {
      *         -5 Error when flushing the DataOutputStream.
      */
     public int start(String params) {
-        int TCPdumpReturn;
-        if ((TCPdumpReturn = tcpdump.start(params)) == 0) {
-            //if (settings.getBoolean("saveCheckbox", false) == true) {
-            //    outputText.setText(mContext
-            //            .getString(R.string.standard_output_disabled)
-            //            + GlobalConstants.dirName
-            //            + "/"
-            //            + settings.getString("fileText", "shark_capture.pcap"));
-            //} else {
-              //  outputText.setText(mContext
-              //          .getString(R.string.standard_output_enabled));
-//                startRefreshing();
+     //   SecondActivity secondActivity = new SecondActivity();
 
-            Toast.makeText(mContext, ("pcptmp is "+ this.GetOutput()),
+        if(RootCmd("/data/data/com.example.yonghaohu.sniff/" +
+                "files/tcpdump > /data/data/com.example.yonghaohu.sniff/" +
+                "files/tcpdumpres ") == "false") {
+            Toast.makeText(mContext, ("RootCmd false"),
                     Toast.LENGTH_SHORT).show();
-
-            SecondActivity secondActivity = new SecondActivity();
-
-            if(secondActivity.RootCmd("/data/data/com.example.yonghaohu.sniff/files/tcpdump > /data/data/com.example.yonghaohu.sniff/files/tcpdump_res") == "false") {
-                Toast.makeText(mContext, ("RootCmd false"),
-                        Toast.LENGTH_SHORT).show();
-            }else{
-                //;
-//                String returnstring = new String();
-//                returnstring = secondActivity.RootCmd("cat /data/data/com.example.yonghaohu.sniff/files/tcpdump_res");
-//                if(returnstring == "false") {
-//                    Toast.makeText(mContext, ("Cat false"),
-//                            Toast.LENGTH_SHORT).show();
-//                }else {
-//                    ;
-//                }
-
-            }
-//            AlertDialog.Builder builder1 = new AlertDialog.Builder(mContext);
-//            builder1.setMessage("pcptmp is "+ this.GetOutput());
-//            builder1.show();
-            //}
-            //setProgressbarVisible();
-            //if (notificationEnabled)
-            //    postNotification();
             return 0;
-        } else
-            return TCPdumpReturn;
+        }else{
+            Toast.makeText(mContext, ("RootCmd Success"),
+                    Toast.LENGTH_SHORT).show();
+            return -1;
+        }
     }
 
+
     /**
-     * Stops the TCPdump process, disables refreshing and removes the
+     * Stops the TCPdump myprocess, disables refreshing and removes the
      * notification.
      *
      *
@@ -227,18 +242,20 @@ public class TCPdumpHandler {
      *         -4: Error when running the killall command.<br>
      *         -5: Error when flushing the output stream.<br>
      *         -6: Error when closing the shell.<br>
-     *         -7: Error when waiting for the process to finish.
+     *         -7: Error when waiting for the myprocess to finish.
      */
     public int stop() {
-        int TCPdumpReturn;
-        if ((TCPdumpReturn = tcpdump.stop()) == 0) {
-//            stopRefreshing();
-//            setProgressbarInvisible();
-//            if (notificationEnabled)
-//                removeNotification();
-            return 0;
-        } else
-            return TCPdumpReturn;
+        myprocess.destroy();
+        return  0;
+//        int TCPdumpReturn;
+//        if ((TCPdumpReturn = tcpdump.stop()) == 0) {
+////            stopRefreshing();
+////            setProgressbarInvisible();
+////            if (notificationEnabled)
+////                removeNotification();
+//            return 0;
+//        } else
+//            return TCPdumpReturn;
     }
 
     /**
