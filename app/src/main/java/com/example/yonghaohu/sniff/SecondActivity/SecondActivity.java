@@ -111,13 +111,6 @@ public class SecondActivity extends Activity {
                 socket_sniff.stopprocess();
                 socket_sniff.interrupt();
                 sniffpackets.interrupt();
-                if(socket_sniff.isInterrupted() == true)
-                    Toast.makeText(context, ("Stop SocketSniff Success"),
-                            Toast.LENGTH_SHORT).show();
-                else
-                    Toast.makeText(context, ("Stop SniffPackets Success"),
-                            Toast.LENGTH_SHORT).show();
-
                 Toast.makeText(context, ("Stop Success"),
                         Toast.LENGTH_SHORT).show();
                 //SniffPackets sniffpackets = new SniffPackets(context);//catch origin
