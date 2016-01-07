@@ -24,7 +24,7 @@ import java.util.List;
 public class MainActivity extends Activity {
 
     List<Integer> listItemID = new ArrayList<Integer>();
-    Button button_sure;
+    Button button_sure, select_all_button;
     ListView lv;
     ListAdapter adapter;
     List<Program> list;
@@ -44,11 +44,27 @@ public class MainActivity extends Activity {
         Log.d("debug", Integer.toString(adapter.mChecked.size()));
 
         button_sure = (Button)findViewById(R.id.button1);
+        select_all_button = (Button)findViewById(R.id.select_all);
+        select_all_button.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                transfer_list_program.clear();
+                for(int i=0;i<adapter.mChecked.size();i++){
+                    adapter.mChecked.set(i, true);
+//                    transfer_list_program.add(list.get(i));
+                }
+                adapter.notifyDataSetChanged();
+
+            }
+        });
+
+
+
+
         button_sure.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 transfer_list_program.clear();
-                for(int i=0;i<adapter.mChecked.size();i++){
+                for(int i=0;i<list.size();i++){
                     if(adapter.mChecked.get(i))
                         transfer_list_program.add(list.get(i));
                 }

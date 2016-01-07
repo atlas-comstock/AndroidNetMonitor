@@ -100,7 +100,6 @@ public class SecondActivity extends Activity {
         start_button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 StartSniff(transfer_list_program, is_Checked);
-
             }
         });
 

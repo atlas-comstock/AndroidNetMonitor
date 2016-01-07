@@ -15,16 +15,16 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/lvprogram"
         android:layout_centerInParent="true"
-        android:text="Select" />
+        android:text="Confirm" />
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/select_all"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/lvprogram"
         android:layout_toLeftOf="@id/button1"
         android:text="Select All" />
     <Button
-        android:id="@+id/button3"
+        android:id="@+id/cancel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/lvprogram"

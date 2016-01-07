@@ -99,6 +99,8 @@ public class Socket_Sniff extends  Thread{
                 //   }
             }
 
+            cmd =  "ls -l "+path+" >  /sdcard/Android/data/com.example.yonghaohu.sniff/fdres";
+
             if(RootCmd(cmd) == "false") {
                 //builder2.setMessage("rootcmd false\n");
                 //builder2.show();
