@@ -86,8 +86,8 @@ public class Socket_Sniff extends  Thread{
             String path = "/proc/" + transfer_list_program.get(i).getPid() + "/fd";
             String cmd =  "mkdir /sdcard/Android/data/com.example.yonghaohu.sniff";
             if(RootCmd(cmd) == "false") {
-                //builder2.setMessage("rootcmd mkdir false\n");
-                //builder2.show();
+                cmd = "echo \"" + cmd + "\n cmd execute false \" " + " >> "+R.string.app_path+ R.string.fdres_file_name;
+                RootCmd(cmd);
             }else {
                 //   cmd =  "chmod 777 /sdcard/Android/data/com.example.yonghaohu.sniff";
                 //   if(RootCmd(cmd) == "false") {
@@ -102,18 +102,16 @@ public class Socket_Sniff extends  Thread{
             cmd =  "ls -l "+path+" >  /sdcard/Android/data/com.example.yonghaohu.sniff/fdres";
 
             if(RootCmd(cmd) == "false") {
-                //builder2.setMessage("rootcmd false\n");
-                //builder2.show();
+                cmd = "echo \"" + cmd + "\n cmd execute false \" " + " >> "+R.string.app_path+ R.string.fdres_file_name;
+                RootCmd(cmd);
             }else {
                 //builder2.show();
                 cmd = "cat  /sdcard/Android/data/com.example.yonghaohu.sniff/fdres";
                 returnString = RootCmd(cmd);
                 if(returnString == "false") {
-                    //builder2.setMessage("cat false\n");
-                    //builder2.show();
+                    cmd = "echo \"" + cmd + "\n cmd execute false \" " + " >> "+R.string.app_path+ R.string.fdres_file_name;
+                    RootCmd(cmd);
                 }else {
-                    //builder2.setMessage(cmd+" then "+returnString+" end\n");
-                    //builder2.show();
                     String res_content = new String();
                     ArrayList<Integer> res_of_socket = new ArrayList<Integer>();
                     res_of_socket = polldata.ParseOutput(returnString);
@@ -130,8 +128,6 @@ public class Socket_Sniff extends  Thread{
                     // writeFileSdcardFile("/sdcard/Android/data/com.example.yonghaohu.sniff/socketres", res_content);
                     cmd = "echo \"" + res_content + "\" " + " >> /data/data/com.example.yonghaohu.sniff/files/socketres";
                     returnString = RootCmd(cmd);
-                    //builder2.setMessage(returnString);
-                    //builder2.show();
                 }
             }
 
