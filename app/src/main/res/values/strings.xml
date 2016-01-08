@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-	<string name="app_name">Shark</string>
+	<string name="app_path">/data/data/com.example.yonghaohu.sniff/files/</string>
+	<string name="tcpdump_binary">tcpdump</string>
+	<string name="temp_directory">tmp</string>
+	<string name="fdres_file_name">fdres</string>
+	<string name="socket_file_name">socketres</string>
+	<string name="tcpdump_file_name">tcpdumpres</string>
+	<string name="app_name">Sniff</string>
 	<string name="interface_prompt">Choose an interface</string>
 	<string name="verbose_promt">Choose a level of detail</string>
 	<string name="parameter_label_text">Parameters</string>

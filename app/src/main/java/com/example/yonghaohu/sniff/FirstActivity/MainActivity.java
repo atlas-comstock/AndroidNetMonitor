@@ -50,14 +50,10 @@ public class MainActivity extends Activity {
                 transfer_list_program.clear();
                 for(int i=0;i<adapter.mChecked.size();i++){
                     adapter.mChecked.set(i, true);
-//                    transfer_list_program.add(list.get(i));
                 }
                 adapter.notifyDataSetChanged();
-
             }
         });
-
-
 
 
         button_sure.setOnClickListener(new View.OnClickListener() {
@@ -74,21 +70,7 @@ public class MainActivity extends Activity {
                     builder1.setMessage("没有选中任何记录");
                     builder1.show();
                 }else {
-//                    PollData polldata = new PollData();
-//                    StringBuilder sb = new StringBuilder();
-//                        sb.append("ItemID="+listItemID.get(i)+" . PID="+list.get(listItemID.get(i)).getPid());
-//                    AlertDialog.Builder builder2 = new AlertDialog.Builder(MainActivity.this);
-//                    for (int i = 0; i < listItemID.size(); i++) {
-//                        list.get(listItemID.get(i)).ge
-//                        Log.d("debug", "is " + list.get(listItemID.get(i)).getPid());
-//                        builder2.setMessage("Pid Is "+list.get(listItemID.get(i)).getPid());
-//                        builder2.show();
-
-//                        ArrayList<Integer> res_of_socket = new ArrayList<Integer>();
-//                        res_of_socket = polldata.ParsePid(list.get(listItemID.get(i)).getPid());
-//                        polldata.testNoListeningTcpPorts(res_of_socket);
-//                    Intent in = new Intent().setClass(MainActivity.this, MainActivity1.class);
-                    Log.d("transfer_list_program.size()", "is " + transfer_list_program.size());
+                    //Log.d("transfer_list_program.size()", "is " + transfer_list_program.size());
                     for (Program aa2 : transfer_list_program) {
                         StringBuilder sb = new StringBuilder();
                         sb.append(aa2.getName()+" pid is "+aa2.getPid()+"\n");
@@ -103,11 +85,6 @@ public class MainActivity extends Activity {
                     intent.setClass(MainActivity.this, SecondActivity.class);
                     MainActivity.this.startActivity(intent);
 
-//                    Intent intent = new Intent(MainActivity.this, SecondActivity.class);
-//                    Bundle bu = new Bundle();
-//                    bu.putParcelableArrayList("extra_data", (ArrayList<? extends Parcelable>) transfer_list_program);
-//                    intent.putExtra("extra_data", bu);
-///                    startActivity(intent);
                     Log.d("debug", "end poll data");
                 }
             }
