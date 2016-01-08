@@ -107,14 +107,16 @@ public class SecondActivity extends Activity {
         stop_button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 start_button.setEnabled(true);
-                socket_sniff.stopprocess();
+                if(isWifi(context)) {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(SecondActivity.this);
+                    builder.setMessage("You have Wifi connection now, would you love to upload?");
+                    builder.show();
+                }
+                socket_sniff.StopProcess();
                 socket_sniff.interrupt();
                 sniffpackets.interrupt();
                 Toast.makeText(context, ("Stop Success"),
                         Toast.LENGTH_SHORT).show();
-                //SniffPackets sniffpackets = new SniffPackets(context);//catch origin
-//                sniffpackets.stopTCPdump(context);
-//                if(isWifi(context))
 
             }
         });
@@ -147,7 +149,6 @@ public class SecondActivity extends Activity {
             Log.d("SniffPackets end", "HELLO");
             sniffpackets.setcontext(context);
             sniffpackets.start();
-//            sniffpackets.run();
         }
     }
 
