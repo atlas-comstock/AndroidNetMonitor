@@ -164,6 +164,18 @@ public class SecondActivity extends Activity {
         return false;
     }
 
+    /*
+    http://www.linuxidc.com/Linux/2011-09/42287.htm
+    public class PackagesInfo {
+        private List<ApplicationInfo> appList;
+
+        public PackagesInfo(Context context){
+            //通包管理器，检索所有的应用程序（甚至卸载的）与数据目录
+            PackageManager pm = context.getApplicationContext().getPackageManager();
+            appList = pm.getInstalledApplications(PackageManager.GET_UNINSTALLED_PACKAGES);
+        }
+        */
+
 //    private static boolean upload_file(Context mContext) {
 //        String filePath = "", url="";
 //        CloseableHttpClient httpClient = HttpClients.createDefault();
