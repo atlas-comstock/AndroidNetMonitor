@@ -26,6 +26,7 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 
 import com.example.yonghaohu.sniff.R;
+import com.example.yonghaohu.sniff.RootTools.RootTools;
 import com.example.yonghaohu.sniff.shark.SniffPackets;
 import com.example.yonghaohu.sniff.useless.MyFileManager;
 
@@ -38,6 +39,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 /**
@@ -52,20 +54,41 @@ public class Socket_Sniff extends  Thread{
     public Socket_Sniff(Context context, List<Program> transfer) {
         mycontext = context;
         transfer_list_program = transfer;
+        if (RootTools.installBinary(context, R.raw.androidlsof, "androidlsof") == false) {
+            new AlertDialog.Builder(context)
+                    .setTitle(R.string.extraction_error)
+                    .setMessage(R.string.extraction_error_msg)
+                    .setNeutralButton(R.string.ok, null).show();
+        }else {
+            Log.d("INstallBinary TCPDump", "SUCCESS");
+        }
+
     }
 
     @Override
     public void run() {
-        StartSocketSummary();
+        StartAndroidLsof();
+//        StartSocketSummary();
     }
     protected void stopprocess() {
        stop = true;
     }
 
+    protected void StartAndroidLsof() {
+        while(!stop)
+            AndroidLsof();
+    }
     protected void StartSocketSummary() {
         while(!stop)
             SocketSummary();
     }
+
+    protected void AndroidLsof() {
+        RootCmd("/data/data/com.example.yonghaohu.sniff/" +
+                "files/./androidlsof -i 2>&1 >> /data/data/com.example.yonghaohu.sniff/" +
+                "files/lsofres ");
+    }
+
 
     protected void SocketSummary() {//List<Program> transfer_list_program
 
@@ -125,7 +148,6 @@ public class Socket_Sniff extends  Thread{
                         res_content += "\ntcp6 start:";
                         res_content += polldata.testNoListeningTcp6Ports(res_of_socket);
                     }
-                    // writeFileSdcardFile("/sdcard/Android/data/com.example.yonghaohu.sniff/socketres", res_content);
                     cmd = "echo \"" + res_content + "\" " + " >> /data/data/com.example.yonghaohu.sniff/files/socketres";
                     returnString = RootCmd(cmd);
                 }
@@ -197,6 +219,18 @@ public class Socket_Sniff extends  Thread{
         }
     }
 
+
+    public static String changeCharset(String str, String newCharset)
+            throws UnsupportedEncodingException {
+        if (str != null) {
+            // 用默认字符编码解码字符串。与系统相关，中文windows默认为GB2312
+            byte[] bs = str.getBytes();
+            return new String(bs, newCharset); // 用新的字符编码生成字符串
+        }
+        return null;
+    }
+
+
     public static String resultExeCmd(String cmd) {
         String returnString = "";
         Process pro = null;
@@ -229,7 +263,7 @@ public class Socket_Sniff extends  Thread{
         try{
             process = Runtime.getRuntime().exec("su");
             os = new DataOutputStream(process.getOutputStream());
-            os.writeBytes(cmd+ "\n");
+            os.writeBytes(cmd+"\n");
             os.writeBytes("exit\n");
             os.flush();
             process.waitFor();

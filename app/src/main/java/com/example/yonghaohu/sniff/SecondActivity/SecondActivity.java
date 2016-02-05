@@ -107,11 +107,11 @@ public class SecondActivity extends Activity {
         stop_button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 start_button.setEnabled(true);
-                if(isWifi(context)) {
-                    AlertDialog.Builder builder = new AlertDialog.Builder(SecondActivity.this);
-                    builder.setMessage("You have Wifi connection now, would you love to upload?");
-                    builder.show();
-                }
+//                if(isWifi(context)) {
+//                    AlertDialog.Builder builder = new AlertDialog.Builder(SecondActivity.this);
+//                    builder.setMessage("You have Wifi connection now, would you love to upload?");
+//                    builder.show();
+//                }
                 socket_sniff.stopprocess();
                 socket_sniff.interrupt();
                 sniffpackets.interrupt();
