@@ -17,7 +17,7 @@
         android:layout_height="wrap_content"
         android:layout_toRightOf="@id/text_view"
         android:layout_alignBaseline="@id/text_view"
-        android:text="数据存储到"
+        android:text="数据存储"
         android:layout_gravity="center_horizontal" />
 
 
@@ -28,6 +28,14 @@
         android:layout_below="@id/text_view"
         android:checked="false"
         android:text="是否采集原始报文(pcap)" />
+
+
+    <EditText
+        android:id="@+id/seconds_duration"
+        android:layout_height="wrap_content"
+        android:hint="运行lsof命令的时间间隔参数"
+        android:layout_below="@id/ParamToggleButton"
+        android:layout_width="match_parent" />
 
     <Button
         android:layout_width="wrap_content"

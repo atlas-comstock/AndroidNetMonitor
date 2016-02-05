@@ -48,6 +48,7 @@ import java.util.List;
 public class Socket_Sniff extends  Thread{
     private Context mycontext;
     private boolean stop = false;
+    private int seconds_duration = 10;
     List<Program>  transfer_list_program;
 
 
@@ -70,6 +71,11 @@ public class Socket_Sniff extends  Thread{
         StartAndroidLsof();
 //        StartSocketSummary();
     }
+
+    public void SetSecondsDuration(int SecondsDuration) {
+        seconds_duration =  SecondsDuration;
+    }
+
     protected void stopprocess() {
        stop = true;
     }
@@ -85,7 +91,7 @@ public class Socket_Sniff extends  Thread{
 
     protected void AndroidLsof() {
         RootCmd("/data/data/com.example.yonghaohu.sniff/" +
-                "files/./androidlsof -i 2>&1 >> /data/data/com.example.yonghaohu.sniff/" +
+                "files/./androidlsof -i -r "+seconds_duration+" 2>&1 >> /data/data/com.example.yonghaohu.sniff/" +
                 "files/lsofres ");
     }
 

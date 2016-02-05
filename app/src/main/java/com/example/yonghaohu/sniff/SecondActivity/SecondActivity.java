@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.CompoundButton;
@@ -141,6 +142,10 @@ public class SecondActivity extends Activity {
     }
 
     protected void StartSniff(List<Program> transfer_list_program, boolean is_Checked) {
+        EditText edittext = (EditText) findViewById(R.id.seconds_duration);
+        int seconds_duration = Integer.parseInt(edittext.getText().toString());
+        socket_sniff.SetSecondsDuration(seconds_duration);
+
         start_button.setEnabled(false);
         Toast.makeText(context, ("Start"),
                 Toast.LENGTH_SHORT).show();
