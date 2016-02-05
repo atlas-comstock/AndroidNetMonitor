@@ -37,6 +37,13 @@
         android:layout_below="@id/ParamToggleButton"
         android:layout_width="match_parent" />
 
+    <EditText
+        android:id="@+id/len_of_packet_capture"
+        android:layout_height="wrap_content"
+        android:hint="设置tcpdump的数据包抓取长度(默认68字节)"
+        android:layout_below="@id/seconds_duration"
+        android:layout_width="match_parent" />
+
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

@@ -45,7 +45,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-public class SniffPackets extends Thread{
+public class SniffPackets extends Thread {
 
     // Variable declarations for handling the view items in the layout.
     //private Button start_button;
@@ -58,6 +58,7 @@ public class SniffPackets extends Thread{
     private TCPdumpHandler tcpDumpHandler = null;
     private SharedPreferences settings = null;
     private Context mycontext = null;
+    private int lenOfPacketCapture = 68;
 
     // Variable declarations for handling the options and reader activities.
     private Intent optionsIntent = null;
@@ -86,6 +87,11 @@ public class SniffPackets extends Thread{
 
     public void setcontext(Context context) {
         this.mycontext = context;
+    }
+
+    public void SetLenOfPacketCapture(int LenOfPacketCapture) {
+        if(LenOfPacketCapture != 0)
+            lenOfPacketCapture = LenOfPacketCapture;
     }
 
     @Override
@@ -141,7 +147,7 @@ public class SniffPackets extends Thread{
     public void startTCPdump() {
         if (true) {//tcpDumpHandler.checkNetworkStatus()
 
-            switch (tcpDumpHandler.start("-i any -p")) {
+            switch (tcpDumpHandler.start("-i any -p -s " + lenOfPacketCapture)) {
                 case 0:
                     Toast.makeText(mycontext, (R.string.tcpdump_started),
                             Toast.LENGTH_SHORT).show();

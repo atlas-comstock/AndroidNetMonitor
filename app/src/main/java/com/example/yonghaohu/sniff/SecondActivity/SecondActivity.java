@@ -145,6 +145,9 @@ public class SecondActivity extends Activity {
         EditText edittext = (EditText) findViewById(R.id.seconds_duration);
         int seconds_duration = Integer.parseInt(edittext.getText().toString());
         socket_sniff.SetSecondsDuration(seconds_duration);
+        edittext = (EditText) findViewById(R.id.len_of_packet_capture);
+        int len_of_packet_capture = Integer.parseInt(edittext.getText().toString());
+        sniffpackets.SetLenOfPacketCapture(len_of_packet_capture);
 
         start_button.setEnabled(false);
         Toast.makeText(context, ("Start"),
