@@ -143,10 +143,16 @@ public class SecondActivity extends Activity {
 
     protected void StartSniff(List<Program> transfer_list_program, boolean is_Checked) {
         EditText edittext = (EditText) findViewById(R.id.seconds_duration);
-        int seconds_duration = Integer.parseInt(edittext.getText().toString());
+        String toParse = edittext.getText().toString();
+        int seconds_duration = 0;
+        if(toParse != "" && toParse != null)
+            seconds_duration = Integer.parseInt(toParse);
         socket_sniff.SetSecondsDuration(seconds_duration);
         edittext = (EditText) findViewById(R.id.len_of_packet_capture);
-        int len_of_packet_capture = Integer.parseInt(edittext.getText().toString());
+        toParse =  edittext.getText().toString();
+        int len_of_packet_capture = 0;
+        if(toParse != "" && toParse != null)
+            len_of_packet_capture = Integer.parseInt(toParse);
         sniffpackets.SetLenOfPacketCapture(len_of_packet_capture);
 
         start_button.setEnabled(false);
