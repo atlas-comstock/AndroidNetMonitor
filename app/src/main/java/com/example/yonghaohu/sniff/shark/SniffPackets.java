@@ -146,8 +146,7 @@ public class SniffPackets extends Thread {
      */
     public void startTCPdump() {
         if (true) {//tcpDumpHandler.checkNetworkStatus()
-
-            switch (tcpDumpHandler.start("-i any -p -s " + lenOfPacketCapture)) {
+            switch (tcpDumpHandler.start(lenOfPacketCapture)) {
                 case 0:
                     Toast.makeText(mycontext, (R.string.tcpdump_started),
                             Toast.LENGTH_SHORT).show();

@@ -214,12 +214,10 @@ public class TCPdumpHandler {
      *         -4 Error when running the TCPdump command.<br>
      *         -5 Error when flushing the DataOutputStream.
      */
-    public int start(String params) {
+    public int start(int params) {
      //   SecondActivity secondActivity = new SecondActivity();
-
-        if(RootCmd("/data/data/com.example.yonghaohu.sniff/" +
-                "files/tcpdump > /data/data/com.example.yonghaohu.sniff/" +
-                "files/tcpdumpres ") == "false") {
+        if(RootCmd("/data/data/com.example.yonghaohu.sniff/files/tcpdump "+"-v -s "+params+
+                " -w /data/data/com.example.yonghaohu.sniff/files/tcpdumpres") == "false") {
             Toast.makeText(mContext, ("RootCmd false"),
                     Toast.LENGTH_SHORT).show();
             return 0;

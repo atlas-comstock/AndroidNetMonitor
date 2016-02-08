@@ -145,14 +145,16 @@ public class SecondActivity extends Activity {
         EditText edittext = (EditText) findViewById(R.id.seconds_duration);
         String toParse = edittext.getText().toString();
         int seconds_duration = 0;
-        if(toParse != "" && toParse != null)
-            seconds_duration = Integer.parseInt(toParse);
+        Log.d("parse", toParse);
+//        if(toParse != "" && toParse != null)
+//            seconds_duration = Integer.parseInt(toParse.replaceAll("\\D+","").replaceAll("\r", "").replaceAll("\n", "").trim(),10);
         socket_sniff.SetSecondsDuration(seconds_duration);
         edittext = (EditText) findViewById(R.id.len_of_packet_capture);
         toParse =  edittext.getText().toString();
         int len_of_packet_capture = 0;
-        if(toParse != "" && toParse != null)
-            len_of_packet_capture = Integer.parseInt(toParse);
+        Log.d("parse", toParse);
+//        if(toParse != "" && toParse != null)
+//            len_of_packet_capture = Integer.parseInt(toParse.replaceAll("\\D+","").replaceAll("\r", "").replaceAll("\n", "").trim(),10);
         sniffpackets.SetLenOfPacketCapture(len_of_packet_capture);
 
         start_button.setEnabled(false);
@@ -165,6 +167,7 @@ public class SecondActivity extends Activity {
             sniffpackets.start();
         }
     }
+
 
 
     private static boolean isWifi(Context mContext) {
