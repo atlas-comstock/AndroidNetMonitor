@@ -90,9 +90,10 @@ public class Socket_Sniff extends  Thread{
     }
 
     protected void AndroidLsof() {
+        RootCmd("date +%s >> /data/data/com.example.yonghaohu.sniff/files/lsofres");
         RootCmd("/data/data/com.example.yonghaohu.sniff/" +
-                "files/./androidlsof -i -r "+seconds_duration+" 2>&1 >> /data/data/com.example.yonghaohu.sniff/" +
-                "files/lsofres ");
+                "files/./androidlsof -i -F ctPf 2>&1 >> /data/data/com.example.yonghaohu.sniff/" +
+                "files/lsofres");
     }
 
 
