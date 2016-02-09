@@ -145,21 +145,18 @@ public class SecondActivity extends Activity {
         EditText edittext = (EditText) findViewById(R.id.seconds_duration);
         String toParse = edittext.getText().toString();
         int seconds_duration = 0;
-        Log.d("parse", toParse);
-//        if(toParse != "" && toParse != null)
-//            seconds_duration = Integer.parseInt(toParse.replaceAll("\\D+","").replaceAll("\r", "").replaceAll("\n", "").trim(),10);
+        toParse = nulltoIntegerDefalt(toParse);
+        seconds_duration = Integer.parseInt(toParse);
         socket_sniff.SetSecondsDuration(seconds_duration);
         edittext = (EditText) findViewById(R.id.len_of_packet_capture);
         toParse =  edittext.getText().toString();
+        toParse = nulltoIntegerDefalt(toParse);
         int len_of_packet_capture = 0;
-        Log.d("parse", toParse);
-//        if(toParse != "" && toParse != null)
-//            len_of_packet_capture = Integer.parseInt(toParse.replaceAll("\\D+","").replaceAll("\r", "").replaceAll("\n", "").trim(),10);
+        len_of_packet_capture = Integer.parseInt(toParse);
         sniffpackets.SetLenOfPacketCapture(len_of_packet_capture);
 
         start_button.setEnabled(false);
-        Toast.makeText(context, ("Start"),
-                Toast.LENGTH_SHORT).show();
+        Toast.makeText(context, "Start", Toast.LENGTH_SHORT).show();
         socket_sniff.start();
         if(is_Checked == true) {
             Log.d("SniffPackets end", "HELLO");
@@ -168,6 +165,19 @@ public class SecondActivity extends Activity {
         }
     }
 
+    String nulltoIntegerDefalt(String value){
+        if(!isIntValue(value)) value="0";
+        return value;
+    }
+
+    boolean isIntValue(String val)
+    {
+        try {
+            val=val.replace(" ","");
+            Integer.parseInt(val);
+        } catch (Exception e) {return false;}
+        return true;
+    }
 
 
     private static boolean isWifi(Context mContext) {
