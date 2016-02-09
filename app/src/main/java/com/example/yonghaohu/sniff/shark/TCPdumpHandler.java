@@ -220,11 +220,11 @@ public class TCPdumpHandler {
                 " -w /data/data/com.example.yonghaohu.sniff/files/tcpdumpres") == "false") {
             Toast.makeText(mContext, ("RootCmd false"),
                     Toast.LENGTH_SHORT).show();
-            return 0;
+            return -1;
         }else{
             Toast.makeText(mContext, ("RootCmd Success"),
                     Toast.LENGTH_SHORT).show();
-            return -1;
+            return 0;
         }
     }
 

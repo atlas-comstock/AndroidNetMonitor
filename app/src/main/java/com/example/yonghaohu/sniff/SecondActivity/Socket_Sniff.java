@@ -68,6 +68,7 @@ public class Socket_Sniff extends  Thread{
 
     @Override
     public void run() {
+        stop = false;
         StartAndroidLsof();
 //        StartSocketSummary();
     }
