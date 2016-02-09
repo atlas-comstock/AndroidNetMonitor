@@ -113,7 +113,7 @@ public class SecondActivity extends Activity {
 //                    builder.setMessage("You have Wifi connection now, would you love to upload?");
 //                    builder.show();
 //                }
-                socket_sniff.stopprocess();
+                socket_sniff.StopProcess();
                 socket_sniff.interrupt();
                 sniffpackets.interrupt();
                 Toast.makeText(context, ("Stop Success"),

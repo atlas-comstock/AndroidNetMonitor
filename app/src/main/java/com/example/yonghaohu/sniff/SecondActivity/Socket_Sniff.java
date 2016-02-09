@@ -76,7 +76,7 @@ public class Socket_Sniff extends  Thread{
         seconds_duration =  SecondsDuration;
     }
 
-    protected void stopprocess() {
+    protected void StopProcess() {
        stop = true;
     }
 
