@@ -6,8 +6,11 @@
 
 #Technology
 1.将tcpdump，lsof重新编译成适用于安卓的二进制(arm-linux-androideabi-g++)
+
 2.用Adapter将Listview，CheckBox与List<Program(自定义类)>绑定
+
 3.并发运行抓取Socket与Packet，使用`lsof +c 0 -i -F ctPnf 2>&1`与`tcpdump -v -s -w pcap`命令
+
 4.读取和解析`/proc/net/tcp, tcp6,udp,udp6`文件， 利用socket inode以及app的pid建立起五元组与应用名称的获取和对应关系
 
 #Implementation
