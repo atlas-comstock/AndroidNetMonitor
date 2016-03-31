@@ -4,9 +4,15 @@
 
 文件的每一行需要记录的信息包括：每个网络套接字的5元组信息（即源IP、源端口、目标IP、目标端口和传输层协议）、记录时间、应用程序名称、已及对应事件（创建/销毁套接字等）。
 
-#implementation
+#Technology
+1.将tcpdump，lsof重新编译成适用于安卓的二进制(arm-linux-androideabi-g++)
+2.用Adapter将Listview，CheckBox与List<Program(自定义类)>绑定
+3.并发运行抓取Socket与Packet，使用`lsof +c 0 -i -F ctPnf 2>&1`与`tcpdump -v -s -w pcap`命令
+4.读取和解析`/proc/net/tcp, tcp6,udp,udp6`文件， 利用socket inode以及app的pid建立起五元组与应用名称的获取和对应关系
+
+#Implementation
 （1）	app列表的获取
-利用PackageManager管理器，检索所有的应用程序与数据，再用ActivityManager与PackagesInfo获取从上得到的所有app名称以及pid，并且使用listview布局展示出来。
+利用PackageManager管理器，检索所有的应用程序与数据，再用ActivityManager与PackagesInfo获取从上得到的所有app名称以及pid，并且使用listview布局展示出来。
 
 （2）	/proc/pid/fd文件的读取和解析
 在安卓中，使用runTime.exec(cmd);可以在android里运行cmd的命令，所以可以通过这个来获取运行命令后的结果输出. 因为/proc目录的读取与分析需要用到root权限，所以使用了runTime.exec(“su”);在安卓上提取root权限。
