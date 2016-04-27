@@ -90,4 +90,5 @@
     "slowstart: "+ fields[i+16]+ "\n\n";
 ```
 
-（5）上传到服务器， 使用Python脚本解析
+（5）上传到服务器， 使用GT Program[Python脚本](https://github.com/YongHaoWu/GT_Program)解析
+
